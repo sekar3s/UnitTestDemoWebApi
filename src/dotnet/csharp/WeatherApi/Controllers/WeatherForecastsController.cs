@@ -51,5 +51,20 @@ namespace WeatherApi.Controllers
 
             return weatherForecast;
         }
+
+        /// <summary>
+        /// Adds a new weather forecast and name the method as AddWeatherForecast.
+        /// </summary>
+        /// <param name="weatherForecast">The weather forecast to add.</param>
+        /// <returns>The added weather forecast.</returns>
+        /// 
+        [HttpPost]
+        public async Task<ActionResult<WeatherForecast>> AddWeatherForecast(WeatherForecast weatherForecast)
+        {
+            var addedWeatherForecast = await _weatherService.AddWeatherForecastAsync(weatherForecast);
+
+            return CreatedAtAction(nameof(GetWeatherForecast), new { id = addedWeatherForecast.Id }, addedWeatherForecast);
+        }
+
     }
 }
